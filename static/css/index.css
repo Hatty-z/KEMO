@@ -50,7 +50,8 @@ code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospac
 .hero { padding: 110px 0 72px; text-align: center; background: radial-gradient(circle at 50% 0%, #eef6ff 0, #ffffff 55%); }
 .hero-inner { max-width: 1050px; }
 .eyebrow { margin: 0 0 12px; color: var(--blue); text-transform: uppercase; letter-spacing: .13em; font-size: .78rem; font-weight: 800; }
-h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4.2vw, 3.5rem); line-height: 1.1; letter-spacing: -.03em; }
+h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.5rem, 3.3vw, 2.6rem); line-height: 1.15; letter-spacing: -.02em; }
+.title-line { display: block; white-space: nowrap; }
 h2 { margin: 0 0 14px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.12; letter-spacing: -.02em; }
 h3 { margin: 0 0 8px; font-size: 1.16rem; }
 .authors { margin: 26px 0 0; font-size: 1.18rem; font-weight: 700; }
@@ -163,6 +164,7 @@ tr.ours td { background: #edf8ef; font-weight: 800; color: #255c2c; }
   .feature-list > div { grid-template-columns: 1fr; gap: 4px; }
   .carousel { gap: 8px; }
   .carousel-arrow { width: 40px; height: 40px; font-size: 1.25rem; }
-  h1 { font-size: clamp(2.35rem, 12vw, 3.5rem); }
+  h1 { font-size: clamp(1.5rem, 6.4vw, 2.2rem); }
+  .title-line { white-space: normal; }
   .abstract-text { text-align: left; }
 }

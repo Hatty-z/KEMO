@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation</title>
-  <meta name="description" content="A plug-in event-driven keyframe memory framework for long-horizon robot manipulation." />
+  <title>KEMO: Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation</title>
+  <meta name="description" content="KEMO: a plug-in event-driven keyframe memory framework for long-horizon robot manipulation." />
   <meta name="keywords" content="robot learning, long-horizon manipulation, VLA, memory, keyframes" />
-  <meta name="author" content="Anonymous Authors" />
-  <meta property="og:title" content="Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation" />
+  <meta name="author" content="Yihan Zeng, Minghao Ye, Yiyuan Chen, Yide Shentu, Philipp Wu, Zike Yan, Zhongyu Li" />
+  <meta property="og:title" content="KEMO: Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation" />
   <meta property="og:description" content="Sparse event keyframes provide explicit history evidence for long-horizon VLA policies." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -18,7 +18,7 @@
   <!-- TODO before publication: replace anonymous author/institution text and links. -->
   <header class="site-header" id="top">
     <nav class="nav container" aria-label="Primary navigation">
-      <a class="brand" href="#top">EKM</a>
+      <a class="brand" href="#top">KEMO</a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
       <div class="nav-links">
         <a href="#method">Method</a>
@@ -33,9 +33,13 @@
     <section class="hero section">
       <div class="container hero-inner">
         <p class="eyebrow">Under Review</p>
-        <h1>Event-Driven Keyframe Memory<br />for Long-Horizon Robot Manipulation</h1>
-        <p class="authors">Anonymous Author(s)</p>
-        <p class="affiliation">Anonymous Institution</p>
+        <h1><span class="title-line">KEMO: Event-Driven Keyframe Memory</span><span class="title-line">for Long-Horizon Robot Manipulation</span></h1>
+        <p class="authors">
+          Yihan Zeng<sup>1,3,4</sup>, Minghao Ye<sup>3,5</sup>, Yiyuan Chen<sup>3</sup>, Yide Shentu<sup>3</sup>, Philipp Wu<sup>3</sup>, Zike Yan<sup>1,2</sup>, Zhongyu Li<sup>1,2</sup>
+        </p>
+        <p class="affiliation">
+          <sup>1</sup>Hong Kong Embodied AI Lab&ensp; <sup>2</sup>The Chinese University of Hong Kong&ensp; <sup>3</sup>xdof.ai&ensp; <sup>4</sup>University of Electronic Science and Technology of China&ensp; <sup>5</sup>Shanghai Jiao Tong University
+        </p>
         <div class="button-row" aria-label="Project resources">
           <a class="button primary" href="static/pdfs/paper.pdf">Paper</a>
           <a class="button" href="#video">Video</a>
@@ -61,7 +65,7 @@
           <h2>Abstract</h2>
         </div>
         <p class="abstract-text">
-          Memory is critical for long-horizon robot manipulation characterized by stage ambiguity and partial observability: the robot may encounter visually similar observations at different stages of execution, yet the correct action depends critically on execution history. Existing memory-augmented approaches either blur discrete stage transitions through dense compression and token merging, or struggle to maintain relevant context over very long horizons. We propose event-driven keyframe memory, a plug-in memory framework that resolves stage ambiguity by precisely identifying and preserving event keyframes corresponding to task-relevant state transitions. Our keyframe detector combines kinematic signals with visual change detection, targeting timesteps where robot actions produce task-relevant state changes. Detected keyframes populate a keyframe memory bank whose compressed tokens are injected into current visual representation via cross-attention, providing the policy with explicit stage-progress evidence. We evaluate our method on real-world dual-arm long-horizon manipulation tasks with average trajectory durations ranging from 40s to 95s. Our method outperforms memory-free and memory-augmented baselines with a notable 30.6% gain over three real-world tasks. Real-world ablation studies confirm that event-driven keyframe selection outperforms uniform sampling with a 25% gain and latest history alternatives with a 16.7% gain, and that keyframe-aligned supervision provides independent performance gains beyond the memory mechanism alone.
+          Long-horizon robot manipulation remains challenging because similar observations may occur at different execution stages, while the appropriate action depends on previously completed operations. Memory can address this ambiguity by enabling policies to infer task progress from execution history. However, existing memory-augmented approaches often retain dense histories that require compression or rely primarily on recent context that may discard earlier task-relevant events. In this work, we propose <strong>KEMO</strong>, a lightweight plug-in memory framework that automatically and selectively preserves keyframes associated with task-relevant state changes for VLA policies. KEMO combines robot kinematics with visual filtering to detect events, encodes the selected keyframes as compact temporally ordered memory tokens, and integrates them with current visual features through cross-attention and gated residual fusion for VLA training. The detected events also define higher-weight training samples near critical transitions. We evaluate KEMO on various real-world dual-arm manipulation tasks spanning 2 to 6 scored subtasks, and trajectory length ranging from 830 steps to 2846 execution steps (durations from 28 to 95 seconds). Compared with the memory-free baseline (<em>e.g.</em>, &pi;<sub>0.5</sub>), KEMO improves aggregate Task Success Rate by 23.6% and Stage Completion Rate by 34.1%. Ablations show that event-driven keyframe selection outperforms uniform sampling and recent-frame retention, while the proposed gated fusion and keyframe-aligned loss weighting provide complementary gains.
         </p>
       </div>
     </section>
@@ -129,20 +133,16 @@
         </div>
         <div class="task-grid">
           <article class="task-card card">
-            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/cover_blocks.mp4" type="video/mp4" /></video>
-            <div class="task-body"><div class="task-meta"><span>6 subtasks</span><span>≈50 s</span></div><h3>Cover Blocks</h3></div>
+            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/swap_foods.mp4" type="video/mp4" /></video>
+            <div class="task-body"><div class="task-meta"><span>2 subtasks</span><span>≈28 s</span></div><h3>Swap Foods</h3></div>
           </article>
           <article class="task-card card">
             <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/find_block.mp4" type="video/mp4" /></video>
             <div class="task-body"><div class="task-meta"><span>4 subtasks</span><span>≈40 s</span></div><h3>Find Block</h3></div>
           </article>
           <article class="task-card card">
-            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/drawer_replacement.mp4" type="video/mp4" /></video>
-            <div class="task-body"><div class="task-meta"><span>4 scored subtasks</span><span>≈95 s</span></div><h3>Drawer Items Replacement</h3></div>
-          </article>
-          <article class="task-card card">
-            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/swap_foods.mp4" type="video/mp4" /></video>
-            <div class="task-body"><div class="task-meta"><span>2 subtasks</span><span>≈28 s</span></div><h3>Swap Foods</h3></div>
+            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/cover_blocks.mp4" type="video/mp4" /></video>
+            <div class="task-body"><div class="task-meta"><span>6 subtasks</span><span>≈50 s</span></div><h3>Cover Blocks</h3></div>
           </article>
           <article class="task-card card">
             <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/box_refill.mp4" type="video/mp4" /></video>
@@ -151,6 +151,10 @@
           <article class="task-card card">
             <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/make_sandwich.mp4" type="video/mp4" /></video>
             <div class="task-body"><div class="task-meta"><span>4 subtasks</span><span>≈54 s</span></div><h3>Make Sandwich</h3></div>
+          </article>
+          <article class="task-card card">
+            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/drawer_replacement.mp4" type="video/mp4" /></video>
+            <div class="task-body"><div class="task-meta"><span>4 scored subtasks</span><span>≈95 s</span></div><h3>Drawer Items Replacement</h3></div>
           </article>
         </div>
       </div>
@@ -163,34 +167,22 @@
           <p>TSR is full-task success. SCR is the average number of correctly completed stages in sequence.</p>
         </div>
         <div class="metrics-grid">
-          <div class="metric card"><strong>+30.6%</strong><span>reported gain across the three main real-world tasks</span></div>
-          <div class="metric card"><strong>+16.7%</strong><span>absolute TSR gain over π<sub>0.5</sub> on three additional tasks</span></div>
-          <div class="metric card"><strong>6 tasks</strong><span>durations ranging from 40s to 95s</span></div>
+          <div class="metric card"><strong>+23.6%</strong><span>aggregate Task Success Rate (TSR) gain over π<sub>0.5</sub></span></div>
+          <div class="metric card"><strong>+34.1%</strong><span>aggregate Stage Completion Rate (SCR) gain over π<sub>0.5</sub></span></div>
+          <div class="metric card"><strong>6 tasks</strong><span>2–6 scored subtasks, 28–95 s per trajectory</span></div>
         </div>
 
         <div class="results-block card">
-          <h3>Main real-world tasks</h3>
           <div class="table-scroll">
             <table>
-              <thead><tr><th rowspan="2">Method</th><th colspan="2">Cover Blocks</th><th colspan="2">Find Block</th><th colspan="2">Drawer Items Replacement</th></tr><tr><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th></tr></thead>
+              <thead>
+                <tr><th rowspan="2">Method</th><th colspan="2">Swap Foods</th><th colspan="2">Find Block</th><th colspan="2">Cover Blocks</th><th colspan="2">Box Refill</th><th colspan="2">Make Sandwich</th><th colspan="2">Drawer Items Replacement</th></tr>
+                <tr><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th></tr>
+              </thead>
               <tbody>
-                <tr><td>π<sub>0.5</sub></td><td>0/12</td><td>1.333/6</td><td>0/12</td><td>0.353/4</td><td>0/12</td><td>0/4</td></tr>
-                <tr><td>MemoryVLA</td><td>0/12</td><td>0.333/6</td><td>0/12</td><td>1.000/4</td><td>0/12</td><td>0/4</td></tr>
-                <tr class="ours"><td>Ours</td><td>9/12</td><td>5.250/6</td><td>2/12</td><td>3.167/4</td><td>0/12</td><td>1.417/4</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="results-block card">
-          <h3>Additional real-world tasks</h3>
-          <div class="table-scroll">
-            <table>
-              <thead><tr><th rowspan="2">Method</th><th colspan="2">Swap Foods</th><th colspan="2">Box Refill</th><th colspan="2">Make Sandwich</th></tr><tr><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th></tr></thead>
-              <tbody>
-                <tr><td>π<sub>0.5</sub></td><td>6/12</td><td>1.50/2</td><td>4/12</td><td>2.58/4</td><td>10/12</td><td>3.33/4</td></tr>
-                <tr><td>MemoryVLA</td><td>1/12</td><td>0.75/2</td><td>0/12</td><td>0/4</td><td>0/12</td><td>1.00/4</td></tr>
-                <tr class="ours"><td>Ours</td><td>8/12</td><td>1.58/2</td><td>7/12</td><td>3.33/4</td><td>11/12</td><td>3.75/4</td></tr>
+                <tr><td>π<sub>0.5</sub></td><td>6/12</td><td>1.500/2</td><td>0/12</td><td>0.353/4</td><td>0/12</td><td>1.333/6</td><td>4/12</td><td>2.580/4</td><td>10/12</td><td>3.330/4</td><td>0/12</td><td>0.000/4</td></tr>
+                <tr><td>MemoryVLA</td><td>1/12</td><td>0.750/2</td><td>0/12</td><td>1.000/4</td><td>0/12</td><td>0.333/6</td><td>0/12</td><td>0.000/4</td><td>0/12</td><td>1.000/4</td><td>0/12</td><td>0.000/4</td></tr>
+                <tr class="ours"><td>Ours</td><td>8/12</td><td>1.580/2</td><td>2/12</td><td>3.167/4</td><td>9/12</td><td>5.250/6</td><td>7/12</td><td>3.330/4</td><td>11/12</td><td>3.750/4</td><td>0/12</td><td>1.417/4</td></tr>
               </tbody>
             </table>
           </div>
