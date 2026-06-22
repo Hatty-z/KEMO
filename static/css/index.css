@@ -50,7 +50,7 @@ code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospac
 .hero { padding: 110px 0 72px; text-align: center; background: radial-gradient(circle at 50% 0%, #eef6ff 0, #ffffff 55%); }
 .hero-inner { max-width: 1050px; }
 .eyebrow { margin: 0 0 12px; color: var(--blue); text-transform: uppercase; letter-spacing: .13em; font-size: .78rem; font-weight: 800; }
-h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.5rem, 3.3vw, 2.6rem); line-height: 1.15; letter-spacing: -.02em; }
+h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.4rem, 3vw, 2.3rem); line-height: 1.15; letter-spacing: -.02em; }
 .title-line { display: block; white-space: nowrap; }
 h2 { margin: 0 0 14px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.12; letter-spacing: -.02em; }
 h3 { margin: 0 0 8px; font-size: 1.16rem; }
