@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation</title>
+  <meta name="description" content="A plug-in event-driven keyframe memory framework for long-horizon robot manipulation." />
+  <meta name="keywords" content="robot learning, long-horizon manipulation, VLA, memory, keyframes" />
+  <meta name="author" content="Anonymous Authors" />
+  <meta property="og:title" content="Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation" />
+  <meta property="og:description" content="Sparse event keyframes provide explicit history evidence for long-horizon VLA policies." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="static/images/favicon.png" />
+  <link rel="stylesheet" href="static/css/index.css" />
+</head>
+<body>
+  <!-- TODO before publication: replace anonymous author/institution text and links. -->
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a class="brand" href="#top">EKM</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+      <div class="nav-links">
+        <a href="#method">Method</a>
+        <a href="#tasks">Tasks</a>
+        <a href="#results">Results</a>
+        <a href="#citation">Citation</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section">
+      <div class="container hero-inner">
+        <p class="eyebrow">Under Review</p>
+        <h1>Event-Driven Keyframe Memory<br />for Long-Horizon Robot Manipulation</h1>
+        <p class="authors">Anonymous Author(s)</p>
+        <p class="affiliation">Anonymous Institution</p>
+        <div class="button-row" aria-label="Project resources">
+          <a class="button primary" href="static/pdfs/paper.pdf">Paper</a>
+          <a class="button" href="#video">Video</a>
+          <a class="button disabled" href="#" aria-disabled="true" title="Replace with a public repository URL">Code (coming soon)</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="video">
+      <div class="container narrow">
+        <div class="video-frame">
+          <video controls muted playsinline preload="metadata">
+            <source src="static/videos/teaser.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="abstract">
+      <div class="container narrow">
+        <div class="section-heading compact">
+          <h2>Abstract</h2>
+        </div>
+        <p class="abstract-text">
+          Memory is critical for long-horizon robot manipulation characterized by stage ambiguity and partial observability: the robot may encounter visually similar observations at different stages of execution, yet the correct action depends critically on execution history. Existing memory-augmented approaches either blur discrete stage transitions through dense compression and token merging, or struggle to maintain relevant context over very long horizons. We propose event-driven keyframe memory, a plug-in memory framework that resolves stage ambiguity by precisely identifying and preserving event keyframes corresponding to task-relevant state transitions. Our keyframe detector combines kinematic signals with visual change detection, targeting timesteps where robot actions produce task-relevant state changes. Detected keyframes populate a keyframe memory bank whose compressed tokens are injected into current visual representation via cross-attention, providing the policy with explicit stage-progress evidence. We evaluate our method on real-world dual-arm long-horizon manipulation tasks with average trajectory durations ranging from 40s to 95s. Our method outperforms memory-free and memory-augmented baselines with a notable 30.6% gain over three real-world tasks. Real-world ablation studies confirm that event-driven keyframe selection outperforms uniform sampling with a 25% gain and latest history alternatives with a 16.7% gain, and that keyframe-aligned supervision provides independent performance gains beyond the memory mechanism alone.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="container">
+        <div class="carousel" data-carousel>
+          <button class="carousel-arrow prev" type="button" aria-label="Previous">&#8249;</button>
+          <div class="carousel-viewport">
+            <div class="carousel-track">
+              <div class="carousel-slide">
+                <div class="section-heading">
+                  <h2>Method</h2>
+                </div>
+                <figure class="wide-figure card">
+                  <img src="static/images/framework.png" alt="Overall event-driven keyframe memory framework" loading="lazy" />
+                </figure>
+                <div class="section-heading" style="text-align: left;">
+                  <p><strong>Event-driven keyframe memory framework.</strong> Keyframe detector module use robot states and visual observations to select task-relevant event keyframes, which are stored in a keyframe memory bank. The memory integration module retrieves the stored keyframes and fuses them with the current visual representation, enabling the VLA backbone to predict actions using both current observations and historical transition evidence. Right: module details for keyframe detection and memory interaction.</p>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <div class="section-heading">
+                  <h2>Keyframe Detection</h2>
+                </div>
+                <div class="split-section">
+                  <figure class="card media-card detector-card">
+                    <img src="static/images/keyframe_detector.png" alt="Event saliency, causal peak detection, and visual deduplication" loading="lazy" />
+                  </figure>
+                  <div class="section-heading" style="text-align: left;">
+                    <p><strong>Event-driven keyframe detection.</strong> The keyframe detector computes an event saliency score from robot motion, identifies candidate keyframes through causal peak detection, and applies a visual deduplication filter to keep only candidates associated with meaningful scene changes. Selected keyframes are stored, while visually redundant or non-transition frames are filtered out.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <div class="section-heading">
+                  <h2>Memory Integration</h2>
+                </div>
+                <div class="split-section">
+                  <figure class="card media-card">
+                    <img src="static/images/memory_integration.png" alt="Keyframe memory integration module" loading="lazy" />
+                  </figure>
+                  <div class="section-heading" style="text-align: left;">
+                    <p><strong>Memory integration.</strong> The memory integration module encodes stored keyframes with the visual encoder, applies spatial pooling and temporal positional embeddings, retrieves keyframe memory tokens, and fuses them with the current visual representation through masked cross-attention and gated residual fusion before action prediction by the VLA backbone.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-arrow next" type="button" aria-label="Next">&#8250;</button>
+        </div>
+        <div class="carousel-dots">
+          <button class="carousel-dot is-active" type="button" data-index="0">Framework</button>
+          <button class="carousel-dot" type="button" data-index="1">Keyframe Detection</button>
+          <button class="carousel-dot" type="button" data-index="2">Memory Integration</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="tasks">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Real-World Experiments</h2>
+          <p>Six real dual-arm memory-dependent manipulation tasks.</p>
+        </div>
+        <div class="task-grid">
+          <article class="task-card card">
+            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/cover_blocks.mp4" type="video/mp4" /></video>
+            <div class="task-body"><div class="task-meta"><span>6 subtasks</span><span>≈50 s</span></div><h3>Cover Blocks</h3></div>
+          </article>
+          <article class="task-card card">
+            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/find_block.mp4" type="video/mp4" /></video>
+            <div class="task-body"><div class="task-meta"><span>4 subtasks</span><span>≈40 s</span></div><h3>Find Block</h3></div>
+          </article>
+          <article class="task-card card">
+            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/drawer_replacement.mp4" type="video/mp4" /></video>
+            <div class="task-body"><div class="task-meta"><span>4 scored subtasks</span><span>≈95 s</span></div><h3>Drawer Items Replacement</h3></div>
+          </article>
+          <article class="task-card card">
+            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/swap_foods.mp4" type="video/mp4" /></video>
+            <div class="task-body"><div class="task-meta"><span>2 subtasks</span><span>≈28 s</span></div><h3>Swap Foods</h3></div>
+          </article>
+          <article class="task-card card">
+            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/box_refill.mp4" type="video/mp4" /></video>
+            <div class="task-body"><div class="task-meta"><span>4 subtasks</span><span>≈50 s</span></div><h3>Box Refill</h3></div>
+          </article>
+          <article class="task-card card">
+            <video muted loop playsinline preload="metadata"><source src="static/videos/tasks/make_sandwich.mp4" type="video/mp4" /></video>
+            <div class="task-body"><div class="task-meta"><span>4 subtasks</span><span>≈54 s</span></div><h3>Make Sandwich</h3></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Results</h2>
+          <p>TSR is full-task success. SCR is the average number of correctly completed stages in sequence.</p>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric card"><strong>+30.6%</strong><span>reported gain across the three main real-world tasks</span></div>
+          <div class="metric card"><strong>+16.7%</strong><span>absolute TSR gain over π<sub>0.5</sub> on three additional tasks</span></div>
+          <div class="metric card"><strong>6 tasks</strong><span>durations ranging from 40s to 95s</span></div>
+        </div>
+
+        <div class="results-block card">
+          <h3>Main real-world tasks</h3>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th rowspan="2">Method</th><th colspan="2">Cover Blocks</th><th colspan="2">Find Block</th><th colspan="2">Drawer Items Replacement</th></tr><tr><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th></tr></thead>
+              <tbody>
+                <tr><td>π<sub>0.5</sub></td><td>0/12</td><td>1.333/6</td><td>0/12</td><td>0.353/4</td><td>0/12</td><td>0/4</td></tr>
+                <tr><td>MemoryVLA</td><td>0/12</td><td>0.333/6</td><td>0/12</td><td>1.000/4</td><td>0/12</td><td>0/4</td></tr>
+                <tr class="ours"><td>Ours</td><td>9/12</td><td>5.250/6</td><td>2/12</td><td>3.167/4</td><td>0/12</td><td>1.417/4</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="results-block card">
+          <h3>Additional real-world tasks</h3>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th rowspan="2">Method</th><th colspan="2">Swap Foods</th><th colspan="2">Box Refill</th><th colspan="2">Make Sandwich</th></tr><tr><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th><th>TSR</th><th>SCR</th></tr></thead>
+              <tbody>
+                <tr><td>π<sub>0.5</sub></td><td>6/12</td><td>1.50/2</td><td>4/12</td><td>2.58/4</td><td>10/12</td><td>3.33/4</td></tr>
+                <tr><td>MemoryVLA</td><td>1/12</td><td>0.75/2</td><td>0/12</td><td>0/4</td><td>0/12</td><td>1.00/4</td></tr>
+                <tr class="ours"><td>Ours</td><td>8/12</td><td>1.58/2</td><td>7/12</td><td>3.33/4</td><td>11/12</td><td>3.75/4</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="citation">
+      <div class="container narrow">
+        <div class="section-heading compact">
+          <p class="eyebrow">Citation</p>
+          <h2>BibTeX</h2>
+        </div>
+        <div class="citation-box">
+          <button class="copy-button" data-copy-target="bibtex">Copy</button>
+          <pre id="bibtex"><code>BibTex not yet available.</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="static/js/index.js"></script>
+</body>
+</html>
