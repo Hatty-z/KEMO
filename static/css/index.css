@@ -141,6 +141,8 @@ tr.ours td { background: #edf8ef; font-weight: 800; color: #255c2c; }
 .citation-box { position: relative; background: #111827; color: #e5edf7; border-radius: 16px; overflow: hidden; }
 .citation-box pre { margin: 0; padding: 28px; overflow-x: auto; line-height: 1.55; }
 .copy-button { position: absolute; top: 12px; right: 12px; border: 1px solid #495568; background: #1e293b; color: white; border-radius: 9px; padding: 7px 11px; cursor: pointer; }
+.ack-figure { margin: 32px 0 0; }
+.ack-figure img { width: 100%; border-radius: 14px; border: 1px solid var(--line); }
 
 .footer { padding: 46px 0; text-align: center; color: var(--muted); border-top: 1px solid var(--line); }
 .footer p { margin: 5px 0; }
